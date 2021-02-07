@@ -27,13 +27,13 @@ but it can be extended to other arithmetic operations or math functions by defin
 ## Contents
 ### forward
 Implementation of forward mode automatic differentiation.
-#### Advantage of forward mode.
+#### Characteristics of forward mode.
 Easy to implement. But when we want to find the derivative values for many variables, it takes a long calculation time in proportion to the number of variables.
 
 
 ### reverse
 Implementation of reverse mode automatic differentiation.
-#### Advantage of reverse mode.
+#### Characteristics of reverse mode.
 Complex implementation. But even if we want to find the derivative values for many variables, the calculation time is not increased. Because, in reverse mode automatic differentiation, the calculation time is proportional to the number of output variables.
 
 ## How to compile?
