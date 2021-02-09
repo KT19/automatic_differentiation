@@ -28,6 +28,7 @@ public:
 
   //mathmatics
   friend Tensor& exp(Tensor &x);
+  friend Tensor& PowTensor(Tensor &x, double p);
 };
 
 class MulTensor : public Tensor {
@@ -67,6 +68,14 @@ public:
   ExpTensor(Tensor *x) {
     this->value = exp(x->data());
     this->parents.push_back({x, this->value});
+  }
+};
+
+class PowTensor : public Tensor {
+public:
+  PowTensor(Tensor *x, double p) {
+    this->value = pow(x->data(), p);
+    this->parents.push_back({x, p*pow(x->data(), p-1)});
   }
 };
 
@@ -113,6 +122,9 @@ Tensor& operator * (double other, Tensor &right) {
 //mathematics
 Tensor& exp(Tensor &x) {
   return *new ExpTensor(&x);
+}
+Tensor& pow(Tensor &x, double p) {
+  return *new PowTensor(&x, p);
 }
 
 int main(void) {
