@@ -25,6 +25,9 @@ public:
 
   //double with tensor
   friend Tensor& operator * (double other, Tensor &right);
+
+  //mathmatics
+  friend Tensor& exp(Tensor &x);
 };
 
 class MulTensor : public Tensor {
@@ -55,6 +58,15 @@ public:
     this->value = left->data()-right->data();
     this->parents.push_back({left, 1.0});
     this->parents.push_back({right, -1.0});
+  }
+};
+
+//mathematics
+class ExpTensor : public Tensor {
+public:
+  ExpTensor(Tensor *x) {
+    this->value = exp(x->data());
+    this->parents.push_back({x, this->value});
   }
 };
 
@@ -96,6 +108,11 @@ Tensor& operator - (Tensor &left, Tensor &right) {
 //double with tensor
 Tensor& operator * (double other, Tensor &right) {
   return *new MulTensor(other, &right);
+}
+
+//mathematics
+Tensor& exp(Tensor &x) {
+  return *new ExpTensor(&x);
 }
 
 int main(void) {
